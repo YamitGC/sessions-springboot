@@ -1,0 +1,3 @@
+spring:
+  application:
+    name: sesion-02-task-api
