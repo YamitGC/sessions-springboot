@@ -1,5 +1,6 @@
 package com.springboot.sesion02taskapi.service;
 
+import com.springboot.sesion02taskapi.exception.TaskNotFoundException;
 import com.springboot.sesion02taskapi.model.Task;
 import com.springboot.sesion02taskapi.repository.TaskRepository;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,7 @@ public class TaskService {
 
     private final TaskRepository taskRepository;
 
-    public TaskService(TaskRepository taskRepository){
+    public TaskService(TaskRepository taskRepository) {
         this.taskRepository = taskRepository;
     }
 
@@ -30,16 +31,22 @@ public class TaskService {
         return taskRepository.findAll();
     }
 
-    public Optional<Task> getTaskById(Long id) {
-        return taskRepository.findById(id);
+    public Task getTaskById(Long id) {
+        return taskRepository.findById(id)
+                .orElseThrow(() -> new TaskNotFoundException(id));
     }
 
-    public Optional<Task> completeTask(Long id) {
-        return taskRepository.markAsCompleted(id);
+    public Task completeTask(Long id) {
+        return taskRepository.markAsCompleted(id)
+                .orElseThrow(() -> new TaskNotFoundException(id));
     }
 
-    public boolean deleteTask(Long id) {
-        return taskRepository.deleteById(id);
+    public void deleteTask(Long id) {
+        boolean wasDeleted = taskRepository.deleteById(id);
+
+        if (!wasDeleted) {
+            throw new TaskNotFoundException(id);
+        }
     }
+
 }
-
