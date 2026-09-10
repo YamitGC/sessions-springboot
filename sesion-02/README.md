@@ -1,14 +1,16 @@
 # Sesión 02 - API de tareas en memoria
 
-API REST básica creada para practicar los fundamentos de Spring Boot.
+API REST de tareas creada con Spring Boot para practicar validación de datos y manejo global de errores, sin base de datos.
 
 ## Conceptos practicados
 
 - Arquitectura por capas: Controller, Service y Repository.
-- Inversión de Control (IoC).
-- Inyección de Dependencias (DI) por constructor.
-- Beans de Spring: `@RestController`, `@Service` y `@Repository`.
-- Endpoints REST y códigos HTTP.
+- Inversión de Control (IoC) e inyección de dependencias por constructor.
+- DTOs con `record`.
+- Validación con Bean Validation: `@Valid`, `@NotBlank` y `@Size`.
+- Manejo global de excepciones con `@RestControllerAdvice`.
+- Respuestas de error consistentes.
+- Pruebas de integración con `MockMvc`.
 - Almacenamiento temporal con `List<Task>`.
 
 ## Tecnologías
@@ -16,11 +18,18 @@ API REST básica creada para practicar los fundamentos de Spring Boot.
 - Java 21
 - Spring Boot
 - Maven
+- JUnit 5
+- MockMvc
+
+## Requisitos
+
+- JDK 21
+- Git
+- Postman, opcionalmente
 
 ## Ejecución
 
-1. Ejecuta la clase `TaskApiApplication`.
-2. La API quedará disponible en:
+Desde la carpeta del proyecto:
 
-```text
-http://localhost:8080
+```bash
+./mvnw spring-boot:run
